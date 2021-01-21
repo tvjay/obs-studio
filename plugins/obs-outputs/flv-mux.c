@@ -84,11 +84,11 @@ static void build_flv_meta_data(obs_output_t *context, uint8_t **output,
 	enc_num_val(&enc, end, "height",
 		    (double)obs_encoder_get_height(vencoder));
 
-	enc_num_val(&enc, end, "videocodecid", VIDEODATA_AVCVIDEOPACKET);
+	enc_str_val(&enc, end, "videocodecid", "avc1");
 	enc_num_val(&enc, end, "videodatarate", encoder_bitrate(vencoder));
 	enc_num_val(&enc, end, "framerate", video_output_get_frame_rate(video));
 
-	enc_num_val(&enc, end, "audiocodecid", AUDIODATA_AAC);
+        enc_str_val(&enc, end, "audiocodecid", "mp4a");
 	enc_num_val(&enc, end, "audiodatarate", encoder_bitrate(aencoder));
 	enc_num_val(&enc, end, "audiosamplerate",
 		    (double)obs_encoder_get_sample_rate(aencoder));
@@ -116,7 +116,7 @@ static void build_flv_meta_data(obs_output_t *context, uint8_t **output,
 
 	dstr_cat(&encoder_name, ")");
 
-	enc_str_val(&enc, end, "encoder", encoder_name.array);
+        enc_str_val(&enc, end, "encoder", "Blackmagic Design AVC Encoder");
 	dstr_free(&encoder_name);
 
 	*enc++ = 0;
